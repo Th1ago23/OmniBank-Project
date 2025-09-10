@@ -5,9 +5,8 @@ namespace Domain.Entity;
 public class User
 {
     public User()
-    {
+    {}
 
-    }
     [Key]
     public Guid Id { get; private set; } = Guid.NewGuid();
     public string Username { get; set; } = string.Empty;
@@ -25,7 +24,7 @@ public class User
             if (FailedLoginAttempts >= 5) throw new ArgumentException("Você excedeu as tentativas de login");
         }
     }
-
+    
     public User (Guid id, string username, string email, string passwordhash)
     {
         Id = id;
