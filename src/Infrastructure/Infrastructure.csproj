@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Domain\Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interface\" />
+  </ItemGroup>
+
 </Project>
