@@ -13,30 +13,26 @@ public class User
     public string Username { get; set; } = string.Empty;
     [EmailAddress]
     public string Email { get; set; } = string.Empty;
-    public string PasswordHash { get; set; } = string.Empty;
-    public bool EmailConfirmed { get; set; }
+    public byte[] PasswordHash { get; set; }
+    public byte[] PasswordSalt { get; set; }
+    public bool EmailConfirmed { get; set; } = false;
+    [Phone]
+    public string PhoneNumber { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     public int FailedLoginAttempts
     {
-        get { return FailedLoginAttempts; }
+        get => _failedLoginAttempts;
         set
         {
-            if (FailedLoginAttempts >= 5) throw new ArgumentException("Você excedeu as tentativas de login");
+            if (value > 5)
+                throw new ArgumentException("Você excedeu as tentativas de login.");
+            _failedLoginAttempts = value;
         }
     }
-    public ICollection<UserLoginAttempt> Attempts { get; set; }
-    public ICollection<Role> Roles { get; set; }
-    public RefreshToken Token { get; set; }
-
-    
-    public User (Guid id, string username, string email, string passwordhash)
-    {
-        Id = id;
-        Username = username;
-        Email = email;
-        PasswordHash = passwordhash;
-        CreatedAt = DateTime.UtcNow;
-    }
+    private int _failedLoginAttempts { get;set; }
+    public ICollection<UserLoginAttempt> Attempts { get; set; } = new List<UserLoginAttempt>();
+    public ICollection<Role> Roles { get; set; } = new HashSet<Role>();
+    public ICollection<RefreshToken> Tokens { get; set; } = new List<RefreshToken>();
 
 }
