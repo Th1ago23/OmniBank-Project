@@ -6,7 +6,7 @@ namespace Domain.Entity;
 public class User
 {
     public User()
-    {}
+    { }
 
     [Key]
     public Guid Id { get; private set; } = Guid.NewGuid();
@@ -30,9 +30,10 @@ public class User
             _failedLoginAttempts = value;
         }
     }
-    private int _failedLoginAttempts { get;set; }
+    private int _failedLoginAttempts { get; set; }
     public ICollection<UserLoginAttempt> Attempts { get; set; } = new List<UserLoginAttempt>();
     public ICollection<Role> Roles { get; set; } = new HashSet<Role>();
     public ICollection<RefreshToken> Tokens { get; set; } = new List<RefreshToken>();
+    public ICollection<Adress> Adresses { get; set; } = new List<Adress>();
 
 }
