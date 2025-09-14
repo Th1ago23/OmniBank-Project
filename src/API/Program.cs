@@ -1,6 +1,5 @@
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +17,8 @@ string connectionString = configuration.GetConnectionString("DbConnection");
 builder.Services.AddDbContext<DbConfig>(options =>
     options.UseSqlServer(connectionString,
         b => b.MigrationsAssembly("Infrastructure")));
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
