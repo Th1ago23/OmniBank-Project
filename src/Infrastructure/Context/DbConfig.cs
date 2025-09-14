@@ -12,6 +12,7 @@ public class DbConfig : DbContext
     public DbSet<RefreshToken> Tokens { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<UserLoginAttempt> UserLoginAttempts { get; set; }
+    public DbSet<Adress> Adresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +33,11 @@ public class DbConfig : DbContext
             entity.HasMany(u => u.Tokens)
                   .WithOne(t => t.User)
                   .HasForeignKey(t => t.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasMany(i=> i.Adresses)
+                  .WithOne(i => i.User)
+                  .HasForeignKey(i=> i.UserId)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -55,6 +61,12 @@ public class DbConfig : DbContext
         {
             entity.ToTable("RefreshTokens");
             entity.HasIndex(t => t.TokenHash).IsUnique();
+        });
+        modelBuilder.Entity<Adress>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Alley).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Cep).IsRequired().HasMaxLength(9);
         });
     }
 }
