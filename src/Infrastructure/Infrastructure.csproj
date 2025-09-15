@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interface\**" />
+    <EmbeddedResource Remove="Interface\**" />
+    <None Remove="Interface\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
@@ -22,10 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interface\" />
   </ItemGroup>
 
 </Project>
