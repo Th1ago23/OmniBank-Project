@@ -1,6 +1,9 @@
-﻿namespace Domain.Interface.Repository;
+﻿using Core.Entity;
+
+namespace Domain.Interface.Repository;
 
 public interface IAttemptsRepository
 {
-    public Task AddAtempt();
+    public Task Add (UserLoginAttempt attempt);
+    public Task Delete(Guid id);
 }

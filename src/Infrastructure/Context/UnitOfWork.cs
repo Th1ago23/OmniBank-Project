@@ -24,7 +24,8 @@ namespace Infrastructure.Context
             Users = new UserRepository(_context);
             Tokens = new TokenRepository(_context);
             Attempts = new AttemptRepository(_context);
-            Expenses = new ExpenseRepository(_context);
+            Adresses = new AdressRepository(_context);
+            Roles = new RoleRepository(_context);
         }
         public async Task<int> CommitAsync()
         {

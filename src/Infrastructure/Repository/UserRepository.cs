@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
-    public IQueryable<User> Find()
+    private IQueryable<User> Find()
     {
         return _context.Users.AsQueryable();
     }
