@@ -15,21 +15,50 @@ public class UserRepository : IUserRepository
     }
     private IQueryable<User> Find()
     {
-        return _context.Users.AsQueryable();
+        return _context
+                    .Users
+                    .AsQueryable();
     }
 
     public async Task Add(User user)
     {
-        await _context.Users.AddAsync(user);        
+        await _context
+                    .Users
+                    .AddAsync(user);        
     }
     public void Update(User user)
     {
-        _context.Users.Update(user);
+        _context
+            .Users
+            .Update(user);
     }
     public async Task Delete(Guid id)
     {
-        var user = await Find().FirstOrDefaultAsync(i => i.Id == id) ?? throw new NullReferenceException();
+        var user = await Find()
+                            .FirstOrDefaultAsync(i => i.Id == id)
+                            ?? throw new NullReferenceException();
 
-        _context.Users.Remove(user);
+        _context
+            .Users
+            .Remove(user);
     }
+    public async Task<User> GetUserById(Guid id)
+    {
+        var user = await Find()
+                            .Include(i => i.Roles)
+                            .Include(i => i.Adresses)
+                            .FirstOrDefaultAsync(i => i.Id == id)
+                            ?? throw new NullReferenceException();
+        return user;
+    }
+    public IEnumerable<User> GetAllUsers()
+    {
+        var users = Find()
+                        .Where(i => i.EmailConfirmed == true)
+                        .Include(i => i.Adresses)
+                        .Include(i => i.Roles)
+                        .ToList();
+        return users;
+    }
+
 }
