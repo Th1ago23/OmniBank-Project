@@ -6,5 +6,6 @@ public enum RolesName
     Operator = 1,
     Admin = 2,
     Analyst = 3,
-    Manager = 4
+    Manager = 4,
+    Support = 5
 }

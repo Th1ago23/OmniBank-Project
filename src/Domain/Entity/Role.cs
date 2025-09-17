@@ -8,6 +8,6 @@ public class Role
     public RolesName Name { get; set; }
     public string Description { get; set; } = string.Empty;
     public ICollection<User> Users { get; set; } = new List<User>();
-
+    public ICollection<Permission> Permissions { get; set; } = new HashSet<Permission>();
 
 }
